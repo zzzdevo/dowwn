@@ -1,7 +1,11 @@
-import requests
+import requests, os
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import yt_dlp
+try:
+	import yt_dlp
+except:
+	os.system("pip install yt_dlp")
+	import yt_dlp
 	
 api_id = 12962251 # Here Api Id 
 api_hash = "b51499523800add51e4530c6f552dbc8" # Here Api Hash 
