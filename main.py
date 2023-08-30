@@ -1,49 +1,50 @@
-import requests
-import json
 import telebot
-from user_agent import generate_user_agent
-token = "5853600134:AAEBZF6ZgSrpjYT2XnJKRwyLtt-EOtRV43Q"
-bot = telebot.TeleBot(token)
+import requests
+from telebot import types,TeleBot
 
-headers = {
-'authority': 'reelsaver.net',
-'accept': '*/*',
-'accept-language': 'ar-EG,ar;q=0.9,en-US;q=0.8,en;q=0.7',
-'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-'origin': 'https://reelsaver.net',
-'referer': 'https://reelsaver.net/download-reel-instagram',
-'sec-ch-ua': '"Chromium";v="105", "Not)A;Brand";v="8"',
-'sec-ch-ua-mobile': '?1',
-'sec-ch-ua-platform': '"Android"',
-'sec-fetch-dest': 'empty',
-'sec-fetch-mode': 'cors',
-'sec-fetch-site': 'same-origin',
-'user-agent': generate_user_agent(),
-'x-requested-with': 'XMLHttpRequest',
-}#@Crrazy_8 & @BRoK8
-@bot.message_handler(commands=["start"])
-def Welcome(message):
- name = message.from_user.first_name
- bot.reply_to(message,f'''- مرحبا بك [{name}](tg://settings)
-- في بوت تحميل من الانستكرام 
-- لتحميل (الفديوهات) ارسل رابط المنشور''',parse_mode="markdown")
-@bot.message_handler(content_types=['text'])
-def video(message):
-    link = message.text
-    data = {
-    'via': 'form',
-    'ref': 'download-reel-instagram',
-    'url': link,
-    }#@Crrazy_8 & @BRoK8
-    response = requests.post('https://reelsaver.net/api/instagram', headers=headers, data=data).json()
-    No = response['success']
-    if No == False:
-     bot.reply_to(message,'<i>خطأ تأكد من الرابط ..</i>',parse_mode="html")
-    else:
-     bot.send_chat_action(message.chat.id,action='upload_video')
-     #user = response['data']['user']['username']
-     video = response["data"]['medias'][0]['src']
-     #log = response['data']['medias'][0]['preview_src']
-     bot.send_video(message.chat.id,video , reply_to_message_id=message.message_id)
+TOK_BOT = ("5853600134:AAEBZF6ZgSrpjYT2XnJKRwyLtt-EOtRV43Q")#token
+b = "MGIMT"
+a = "@IQ7amo"
+sh_btn = types.InlineKeyboardButton(text='داگرتن', callback_data='s1')
+version = types.InlineKeyboardButton(text='Version 1.1', callback_data='v')
+dev = types.InlineKeyboardButton(text='🧑🏻‍💻پڕۆگرامساز', url='tg://openmessage?user_id=833360381')
 
+bot = telebot.TeleBot(TOK_BOT)
+@bot.message_handler(commands=['pin'])
+def weclome(message):
+	b = types.InlineKeyboardMarkup()
+	b.row_width = 2
+	b.add(sh_btn,version, dev)
+	
+	FIRST_NAME = message.from_user.first_name
+	bot.send_message(message.chat.id,f'''
+	*- اهلن بك {FIRST_NAME}
+ في بوت تحميل من بنترست 👾
+& فقط اضغط تحميل*''',parse_mode='markdown',reply_markup=b)
+	
+@bot.callback_query_handler(func=lambda call: True)
+def sh(call):
+	if call.data=='s1':
+		bot.send_message(call.message.chat.id,f'- ارسل الرابط!')
+	@bot.message_handler(func=lambda m: True)
+	def Url(message):
+		bot.send_message(message.chat.id,f"<strong>Wait Please</strong>",parse_mode="html")
+		msg = message.text
+		key_1 = requests.get(f'https://dev-broksuper.pantheonsite.io/api/pin.php?url={msg}').json()["UrlVideo"]
+		bot.send_message(message.chat.id,text=f'''
+		مبرمج الملف : {a}
+     & قناة المبرمج : {b}''',parse_mode="MarkdownV2")
+		try:
+			if key_1==False:
+				bot.send_message(message.chat.id,f'- الرابط خطا عزيزي')
+			else:
+				share_telegram = types.InlineKeyboardButton(text='- مشاركه', url='https://t.me/share/url?url='+key_1)
+				s = types.InlineKeyboardMarkup()
+				s.row_width = 1
+				s.add(share_telegram)
+				bot.send_video(message.chat.id,key_1,caption=f'Done ✅',
+    reply_markup=s)
+		except:
+			bot.reply_to(message,text='الرابط خطأ عزيزي!🚫')
+print('run')
 bot.infinity_polling()
