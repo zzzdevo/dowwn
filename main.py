@@ -1,19 +1,13 @@
+import telebot
 import requests, os
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-try:
-	import yt_dlp
-except:
-	os.system("pip install yt_dlp")
-	import yt_dlp
+from telebot.types import InlineKeyboardButton as Btn , InlineKeyboardMarkup as Mak
 	
-api_id = 12962251 # Here Api Id 
-api_hash = "b51499523800add51e4530c6f552dbc8" # Here Api Hash 
-bot_token = "5853600134:AAEBZF6ZgSrpjYT2XnJKRwyLtt-EOtRV43Q" # Here Bot Token 
-app = Client("iiu", api_id=api_id,api_hash=api_hash, bot_token=bot_token)
+token = "000"#token
+bot = telebot.TeleBot(token)
 
-
-@app.on_message(filters.command("start") & filters.private)
+@bot.message_handler(commands=["start"], chat_types=["private"])
 def start(client, message):
  do = requests.get(f"https://api.telegram.org/bot{bot_token}/getChatMember?chat_id=@MGIMT&user_id={message.from_user.id}").text
     
@@ -46,32 +40,37 @@ def start(client, message):
     )
 
 	 
-@app.on_message(filters.text & filters.private)
-async def download(client, message):
-     EnyWeb = message.text 
-     x = await message.reply("**دادەبەزێت کەمێك چاوەڕێبە . . . ❗️**")
-     try:
-       Media = yt_dlp.YoutubeDL({'format': 'best[ext=mp4]'}).extract_info(EnyWeb, False)["url"]
-     except Exception as e:
-        await x.delete()
-        print(e)
-        return await message.reply("**› لینك دروست نییە !**")
-     try:
-        caption = f"**داگرترا لەلایەن [بۆت](t.me/MGIMT) ♥️✅**"
-        await message.reply_audio(
-             Media,
-             caption=caption
-        )
-        await x.delete()
-     except Exception as e:
-        print(e)
-        await x.delete()
-        return await message.reply("**هەڵەیە**")
+@bot.message_handler(func=lambda brok:True)
+def Url(message):
+		try:
+			msgg = bot.send_message(message.chat.id, "*جاري التحميل ...*",parse_mode="markdown")
+			msg = message.text
+			url = requests.get(f'https://tikwm.com/api/?url={msg}').json()
+			music = url['data']['music']
+			region = url['data']['region']
+			tit = url['data']['title']
+			vid = url['data']['play']
+			ava = url['data']['author']['avatar']
+			##
+			name = url['data']['music_info']['author']
+			time = url['data']['duration']
+			sh = url['data']['share_count']
+			com = url['data']['comment_count']
+			wat = url['data']['play_count']
+			bot.delete_message(chat_id=message.chat.id, message_id=msgg.message_id)
+			bot.send_photo(message.chat.id,ava,caption=f'- اسم الحساب : *{name}*\n - دوله الحساب : *{region}*\n\n- عدد مرات المشاهدة : *{wat}*\n- عدد التعليقات : *{com}*\n- عدد مرات المشاركة : *{sh}*\n- طول الفيديو : *{time}*',parse_mode="markdown")
+			btn = Mak().add(Btn('تحميل الصوت',url=''+music))
+			bot.send_video(message.chat.id,vid, caption=f"{tit}",reply_markup=btn)
+		except:
+			pass
+			bot.delete_message(chat_id=message.chat.id, message_id=msgg.message_id)
+			bot.reply_to(message,'error );')
 
 
-print("Wait........")
-app.run()
-print("Bot is run")
-    
-#By @N0040
-#Channel @B3kkk  
+print('run')
+bot.infinity_polling()
+# تذكرو مصدري 
+'''
+مبرمج الملف - @BRoK8
+قناتي - @Crrazy_8
+'''
