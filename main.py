@@ -16,7 +16,7 @@ def weclome(message):
     v.row_width = 2
     v.add(sh_btn, version, dev)
 
-    FIRST_NAME = message.from_user.mention
+    FIRST_NAME = message.from_user.first_name
     bot.send_message(message.chat.id, f'''
 	*بەخێربێی ئەزیزم {FIRST_NAME}
  دەتوانی لە ڕێگایی دوگمە ڤیدیۆی پینترێست دابگریت*''', parse_mode='markdown', reply_markup=v)
