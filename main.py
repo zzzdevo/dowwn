@@ -4,7 +4,7 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from telebot.types import InlineKeyboardButton as Btn , InlineKeyboardMarkup as Mak
 	
-token = "000"#token
+token = "5853600134:AAEBZF6ZgSrpjYT2XnJKRwyLtt-EOtRV43Q"#token
 bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=["start"], chat_types=["private"])
