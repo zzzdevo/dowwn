@@ -18,13 +18,33 @@ def start(client, message):
  do = requests.get(f"https://api.telegram.org/bot{bot_token}/getChatMember?chat_id=@MGIMT&user_id={message.from_user.id}").text
     
  if do.count("left") or do.count("Bad Request: user not found"):
-  return message.reply_text("**Join [this channel](t.me/{MGIMT}) first to be able to use the bot**",
+  return message.reply_text("**ببورە ئەزیزم [کەناڵی بۆت](t.me/MGIMT) پێویستە سەرەتا جۆینی کەناڵ بکەیت بۆ بەکارهێنانی بۆت\nدواتر /start بکە♥️✅**",
   disable_web_page_preview=True,
   reply_markup=InlineKeyboardMarkup(
-  [[InlineKeyboardButton("Join Channel",
+  [[InlineKeyboardButton("⚡️ جۆینی کەناڵ بکە ئەزیزم ⚡️",
   url='https://t.me/MGIMT')]]))
  else:
-    message.reply(f"Hello {message.from_user.mention} !\n› This bot is made to download from any site \n› Just send URL", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Source Channel", url="t.me/B3KKK")]]))
+    message.reply_photo(
+        photo=f"https://telegra.ph/file/d2f5a8cf50eb98581f9e9.jpg",
+        caption=f"""**[⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 - 🧑🏻‍💻🖤 بۆتی داگرتن](t.me/MGIMT)**\n••┉┉┉┉┉••🝢••┉┉┉┉┉••\n\n**بەخێربێی ئەزیزم{message.from_user.mention} بۆ بۆتی داگرتن🕷️•**\n\n**تیکتۆك و ئینستاگرام بە شێوازی ڕاستەوخۆ دابگرا تەنیا لینکی بنێرە**\n\n**ڤیدیۆی پینترێست دابگرە لە ڕێگایی دوگمەوە**\n\n**نموونە :**\n**/pin بنووسە خۆی دوگمەت پێدەدات بۆ داگرتن**\n\n**دروستکراوم لەلایەن - [𐇮 ﺣّ͠ـِِّٓٓٔـەمّْٔــّ٘ە⤹🦅⃟آلـۘهہؚيـٰـُ͢ـُ໋۠بـ໋ۘ۠ه  𐇮](t.me/IQ7amo)**""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "᳒ᯓ پڕۆگرامساز", url=f"https://t.me/IQ7amo"),
+                ], [
+
+                InlineKeyboardButton(
+                    "⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌", url=f"https://t.me/MGIMT")
+
+            ],
+
+            ]
+
+        ),
+
+    )
+
 	 
 @app.on_message(filters.text & filters.private)
 async def download(client, message):
