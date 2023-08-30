@@ -1,7 +1,6 @@
 import telebot
 import requests
-from telebot import types, TeleBot
-from telebot.types import InlineKeyboardButton as Btn, InlineKeyboardMarkup as Mak
+from telebot import types,TeleBot
 
 TOK_BOT = ("5853600134:AAEBZF6ZgSrpjYT2XnJKRwyLtt-EOtRV43Q")#token
 p = "@MGIMT"
