@@ -12,15 +12,20 @@ api_hash = "b51499523800add51e4530c6f552dbc8" # Here Api Hash
 bot_token = "5853600134:AAEBZF6ZgSrpjYT2XnJKRwyLtt-EOtRV43Q" # Here Bot Token 
 app = Client("iiu", api_id=api_id,api_hash=api_hash, bot_token=bot_token)
 
-bot_id = app.bot_token.split(":")[0]
-
-# Get ur redis url from https://app.redislabs.com/
-r = redis.from_url(
-    'redis://default:FxQ32tSLxtCe3iq6Vqdu4c9NA3Vv7nLI@redis-12179.c273.us-east-1-2.ec2.cloud.redislabs.com:12179')
 
 @app.on_message(filters.command("start") & filters.private)
 def start(client, message):
+ do = requests.get(f"https://api.telegram.org/bot{bot_token}/getChatMember?chat_id=@MGIMT&user_id={message.from_user.id}").text
+    
+ if do.count("left") or do.count("Bad Request: user not found"):
+  return message.reply_text("**Join [this channel](t.me/{MGIMT}) first to be able to use the bot**",
+  disable_web_page_preview=True,
+  reply_markup=InlineKeyboardMarkup(
+  [[InlineKeyboardButton("Join Channel",
+  url='https://t.me/MGIMT')]]))
+ else:
     message.reply(f"Hello {message.from_user.mention} !\n› This bot is made to download from any site \n› Just send URL", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Source Channel", url="t.me/B3KKK")]]))
+	 
 @app.on_message(filters.text & filters.private)
 async def download(client, message):
      EnyWeb = message.text 
@@ -44,7 +49,7 @@ async def download(client, message):
         await x.delete()
         return await message.reply("**هەڵەیە**")
 
-	     
+
 print("Wait........")
 app.run()
 print("Bot is run")
