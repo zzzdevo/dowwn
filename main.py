@@ -2,7 +2,7 @@ import telebot
 import requests
 from telebot import types,TeleBot
 
-TOK_BOT = ("6493552305:AAEt8h6315pVrIxwTvfjZaBDkRmhZ7jnX3o")#token
+TOK_BOT = ("5853600134:AAEBZF6ZgSrpjYT2XnJKRwyLtt-EOtRV43Q")#token
 p = "@MGIMT"
 o = "@IQ7amo"
 sh_btn = types.InlineKeyboardButton(text='داگرتنی ڤیدیۆ', callback_data='s1')
