@@ -51,7 +51,7 @@ def sh(call):
 
 #tiktok
 
-sh_btn = types.InlineKeyboardButton(text='داگرتنی ڤیدیۆ', callback_data='s1')
+sh_btn = types.InlineKeyboardButton(text='داگرتنی ڤیدیۆ', callback_data='q1')
 version = types.InlineKeyboardButton(text='Version 1.1', callback_data='v')
 dev = types.InlineKeyboardButton(text='کەناڵی بۆتەکان 🧑🏻‍💻🖤', url='t.me/MGIMT')
 
@@ -69,14 +69,14 @@ def weclome(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def sh(call):
-    if call.data == 's1':
+    if call.data == 'q1':
         bot.send_message(call.message.chat.id, f"*ئێستا لینکی ڤیدیۆ بنێرە*", parse_mode="markdown")
 
     @bot.message_handler(func=lambda m: True)
     def Url(message):
         bot.send_message(message.chat.id, f"<strong>دادەبەزێت کەمێك چاوەڕێبە . . . ❗️</strong>", parse_mode="html")
         msg = message.text
-        ke_1 = requests.get(f'https://tikwm.com/api/?url={msg}').json()["UrlVideo"]
+        ke_1 = requests.get(f'https://tikwm.com/api/?url={msg}').json()["Url"]
         bot.send_message(message.chat.id, text=f'''
 		مبرمج الملف : {o}
      & قناة المبرمج : {p}''', parse_mode="MarkdownV2")
