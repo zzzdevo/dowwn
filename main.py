@@ -51,7 +51,7 @@ def sh(call):
 
 #tiktok
 
-sh_btn = types.InlineKeyboardButton(text='داگرتنی ڤیدیۆ', callback_data='s2')
+sh_btn = types.InlineKeyboardButton(text='داگرتنی ڤیدیۆ', callback_data='s1')
 version = types.InlineKeyboardButton(text='Version 1.1', callback_data='v')
 dev = types.InlineKeyboardButton(text='کەناڵی بۆتەکان 🧑🏻‍💻🖤', url='t.me/MGIMT')
 
@@ -69,7 +69,7 @@ def weclome(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def sh(call):
-    if call.data == 's2':
+    if call.data == 's1':
         bot.send_message(call.message.chat.id, f"*ئێستا لینکی ڤیدیۆ بنێرە*", parse_mode="markdown")
 
     @bot.message_handler(func=lambda m: True)
