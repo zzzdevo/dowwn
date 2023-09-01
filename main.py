@@ -76,20 +76,20 @@ def sh(call):
     def Url(message):
         bot.send_message(message.chat.id, f"<strong>دادەبەزێت کەمێك چاوەڕێبە . . . ❗️</strong>", parse_mode="html")
         msg = message.text
-        key_1 = requests.get(f'https://tikwm.com/api/?url={msg}').json()["UrlVideo"]
+        ke_1 = requests.get(f'https://tikwm.com/api/?url={msg}').json()["UrlVideo"]
         bot.send_message(message.chat.id, text=f'''
 		مبرمج الملف : {o}
      & قناة المبرمج : {p}''', parse_mode="MarkdownV2")
         try:
-            if key_1 == False:
+            if ke_1 ==  False:
                 bot.send_message(message.chat.id, f'- الرابط خطا عزيزي')
             else:
                 share_telegram = types.InlineKeyboardButton(text='گۆڕینی بۆ دەنگ',
-                                                            url='https://t.me/IQCVBOT?url=' + key_1)
+                                                            url='https://t.me/IQCVBOT?url=' + ke_1)
                 s = types.InlineKeyboardMarkup()
                 s.row_width = 1
                 s.add(share_telegram)
-                bot.send_video(message.chat.id, key_1, caption=f'Done ✅',
+                bot.send_video(message.chat.id, ke_1, caption=f'Done ✅',
                                reply_markup=s)
         except:
             bot.reply_to(message, text='الرابط خطأ عزيزي!🚫')
